@@ -1,0 +1,1226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClickShift Alpha - Investor Pitch Deck</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            color: #ffffff;
+            overflow: hidden;
+        }
+
+        .deck-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            height: 100vh;
+        }
+
+        .slide {
+            min-height: 100vh;
+            padding: 60px 40px;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            overflow-y: auto;
+        }
+
+        .slide.active {
+            display: flex;
+        }
+
+        .slide-number {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            color: #888;
+            font-size: 14px;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #00d4ff, #ff4081, #ffd700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, #00d4ff, #ff4081);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        h3 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #00d4ff;
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            color: #ccc;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .tagline {
+            font-size: 1.5rem;
+            color: #ffd700;
+            text-align: center;
+            margin-bottom: 40px;
+            font-weight: 600;
+        }
+
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.2);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #ffd700;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: #ccc;
+            margin-top: 10px;
+        }
+
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .problem-card {
+            background: linear-gradient(135deg, rgba(255, 64, 129, 0.1), rgba(255, 64, 129, 0.05));
+            border: 1px solid rgba(255, 64, 129, 0.3);
+            border-radius: 12px;
+            padding: 25px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 12px;
+            padding: 25px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #00d4ff, #ff4081);
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .founder-quote {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 215, 0, 0.05));
+            border-left: 4px solid #ffd700;
+            padding: 30px;
+            margin: 40px 0;
+            border-radius: 8px;
+            font-style: italic;
+            font-size: 1.2rem;
+            line-height: 1.6;
+        }
+
+        .competitive-table {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 30px 0;
+        }
+
+        .competitive-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .competitive-table th,
+        .competitive-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .competitive-table th {
+            background: rgba(0, 212, 255, 0.2);
+            font-weight: 600;
+        }
+
+        .revenue-timeline {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 40px 0;
+            position: relative;
+        }
+
+        .revenue-timeline::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #00d4ff, #ff4081, #ffd700);
+            z-index: 1;
+        }
+
+        .timeline-item {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid #00d4ff;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            z-index: 2;
+            position: relative;
+            min-width: 180px;
+        }
+
+        .timeline-year {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #ffd700;
+        }
+
+        .timeline-revenue {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #00d4ff;
+            margin: 10px 0;
+        }
+
+        .timeline-users {
+            font-size: 0.9rem;
+            color: #ccc;
+        }
+
+        .cta-section {
+            text-align: center;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(255, 64, 129, 0.1));
+            border-radius: 20px;
+            padding: 50px;
+            margin: 40px 0;
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, #00d4ff, #ff4081);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin: 10px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(0, 212, 255, 0.3);
+        }
+
+        .metric-highlight {
+            background: linear-gradient(135deg, #ffd700, #ff4081);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 800;
+        }
+
+        ul {
+            list-style: none;
+            margin: 20px 0;
+        }
+
+        li {
+            padding: 8px 0;
+            position: relative;
+            padding-left: 25px;
+        }
+
+        li::before {
+            content: '▶';
+            position: absolute;
+            left: 0;
+            color: #00d4ff;
+        }
+
+        .highlight-box {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid #ffd700;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .company-logo {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 20px auto;
+            display: block;
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            border-radius: 20px;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logo-svg {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 0 20px rgba(0, 212, 255, 0.5));
+        }
+
+        .financial-table {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 30px 0;
+        }
+
+        .financial-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .financial-table th,
+        .financial-table td {
+            padding: 15px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .financial-table th {
+            background: rgba(0, 212, 255, 0.2);
+            font-weight: 600;
+        }
+
+        .ask-highlight {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 64, 129, 0.2));
+            border: 2px solid #ffd700;
+            border-radius: 15px;
+            padding: 40px;
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .ask-amount {
+            font-size: 4rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #ffd700, #ff4081);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+        }
+
+        .oneliner {
+            background: linear-gradient(135deg, #00d4ff, #ff4081);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 2.5rem;
+            font-weight: 800;
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .demo-placeholder {
+            background: rgba(0, 212, 255, 0.1);
+            border: 2px dashed #00d4ff;
+            border-radius: 12px;
+            padding: 40px;
+            text-align: center;
+            margin: 30px 0;
+            font-size: 1.2rem;
+            color: #00d4ff;
+        }
+
+        .user-testimonial {
+            background: rgba(255, 255, 255, 0.05);
+            border-left: 4px solid #00d4ff;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 8px;
+            font-style: italic;
+        }
+
+        .growth-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .growth-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .contact-info {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .contact-info a {
+            color: #00d4ff;
+            text-decoration: none;
+        }
+
+        .contact-info a:hover {
+            text-decoration: underline;
+        }
+
+        /* Navigation */
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            display: flex;
+            gap: 15px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+            align-items: center;
+        }
+
+        .nav-button {
+            background: rgba(0, 212, 255, 0.2);
+            border: 1px solid #00d4ff;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+        }
+
+        .nav-button:hover {
+            background: rgba(0, 212, 255, 0.4);
+            transform: scale(1.1);
+        }
+
+        .slide-counter {
+            color: #fff;
+            font-size: 14px;
+            padding: 0 15px;
+            white-space: nowrap;
+        }
+
+        @media (max-width: 768px) {
+            .slide {
+                padding: 40px 20px;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+
+            .revenue-timeline {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .revenue-timeline::before {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="deck-container">
+        <!-- Slide 1: Title -->
+        <div class="slide active">
+            <div class="slide-number">1/13</div>
+            <div class="company-logo">
+                <svg class="logo-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="circuitGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#00d4ff;stop-opacity:0.3" />
+                            <stop offset="50%" style="stop-color:#ff4081;stop-opacity:0.2" />
+                            <stop offset="100%" style="stop-color:#ffd700;stop-opacity:0.3" />
+                        </linearGradient>
+                        <filter id="glow">
+                            <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                            <feMerge> 
+                                <feMergeNode in="coloredBlur"/>
+                                <feMergeNode in="SourceGraphic"/>
+                            </feMerge>
+                        </filter>
+                    </defs>
+                    
+                    <g stroke="#00d4ff" stroke-width="1.5" fill="none" opacity="0.6">
+                        <path d="M50 30 L70 30 L80 40 L120 40 L130 50 L150 50"/>
+                        <path d="M170 70 L150 70 L140 80 L100 80 L90 90 L70 90"/>
+                        <path d="M30 110 L50 110 L60 120 L100 120 L110 130 L130 130"/>
+                        <path d="M170 150 L150 150 L140 140 L100 140 L90 130 L70 130"/>
+                    </g>
+                    
+                    <g fill="#00d4ff" filter="url(#glow)">
+                        <circle cx="50" cy="30" r="3"/>
+                        <circle cx="150" cy="50" r="3"/>
+                        <circle cx="170" cy="70" r="3"/>
+                        <circle cx="70" cy="90" r="3"/>
+                        <circle cx="30" cy="110" r="3"/>
+                        <circle cx="130" cy="130" r="3"/>
+                        <circle cx="170" cy="150" r="3"/>
+                        <circle cx="70" cy="130" r="3"/>
+                    </g>
+                    
+                    <g filter="url(#glow)">
+                        <path d="M140 60 Q120 40 90 40 Q60 40 40 70 Q40 100 40 130 Q40 160 70 160 Q100 160 120 140" 
+                              stroke="#ffffff" stroke-width="8" fill="none" stroke-linecap="round"/>
+                        <path d="M140 60 Q120 40 90 40 Q60 40 40 70 Q40 100 40 130 Q40 160 70 160 Q100 160 120 140" 
+                              stroke="url(#circuitGradient)" stroke-width="4" fill="none" stroke-linecap="round"/>
+                    </g>
+                    
+                    <g fill="#ffd700">
+                        <circle cx="120" cy="60" r="4" opacity="0.8">
+                            <animate attributeName="opacity" values="0.3;1;0.3" dur="2s" repeatCount="indefinite"/>
+                        </circle>
+                        <circle cx="50" cy="100" r="4" opacity="0.8">
+                            <animate attributeName="opacity" values="1;0.3;1" dur="2s" repeatCount="indefinite"/>
+                        </circle>
+                        <circle cx="110" cy="140" r="4" opacity="0.8">
+                            <animate attributeName="opacity" values="0.3;1;0.3" dur="2s" repeatCount="indefinite" begin="1s"/>
+                        </circle>
+                    </g>
+                </svg>
+            </div>
+            <h1>ClickShift Alpha</h1>
+            <p class="subtitle">Predictive Trading Intelligence for DeFi</p>
+            <p class="tagline">Stop losing money in crypto. Trade with intelligence, not guesswork.</p>
+            <div class="cta-section">
+                <p style="color: #ccc; margin-bottom: 20px;">Emmanuel Ohanwe, Founder</p>
+                <button class="cta-button">clickshift-alpha.vercel.app</button>
+                <p style="color: #888; margin-top: 20px;">July 2025</p>
+            </div>
+        </div>
+
+        <!-- Slide 2: The Problem -->
+        <div class="slide">
+            <div class="slide-number">2/13</div>
+            <h2>95% of crypto traders lose money</h2>
+            <h3>The $2.3 Trillion Problem:</h3>
+            <div class="hero-stats">
+                <div class="stat-card">
+                    <span class="stat-number">560M+</span>
+                    <span class="stat-label">crypto traders worldwide</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">$3K-$15K</span>
+                    <span class="stat-label">average loss per trader annually</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">Emotions</span>
+                    <span class="stat-label">root cause: trading on FOMO</span>
+                </div>
+            </div>
+            
+            <div class="founder-quote">
+                <h3>Personal Story:</h3>
+                <p>"I lost 9 months of my salary trading crypto in 2021. I made every mistake - bought tops, sold bottoms, fell for rugs. Tools like ClickShift didn't exist."</p>
+                <p style="text-align: right; margin-top: 20px;"><strong>- Emmanuel Ohanwe, Founder</strong></p>
+            </div>
+            
+            <div class="highlight-box">
+                <p style="text-align: center; font-size: 1.2rem;">Current "solutions" only show what happened. <span class="metric-highlight">Nobody predicts what WILL happen.</span></p>
+            </div>
+        </div>
+
+        <!-- Slide 3: The Solution -->
+        <div class="slide">
+            <div class="slide-number">3/13</div>
+            <h2>The Solution</h2>
+            <h3 style="text-align: center; margin-bottom: 40px;">World's First Predictive Trading Intelligence</h3>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <span class="feature-icon">🎯</span>
+                    <h3>Exit Cluster Detection (Patent-Pending)</h3>
+                    <p>Know WHERE traders plan to sell BEFORE they do</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">⚡</span>
+                    <h3>Real-Time Launch Detection</h3>
+                    <p>Sub-30 second alerts for new tokens</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">🛡️</span>
+                    <h3>AI Safety Scoring</h3>
+                    <p>100-point risk assessment prevents rugs</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">📊</span>
+                    <h3>Smart Entry Analysis</h3>
+                    <p>Data-driven buy/sell recommendations</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">🤖</span>
+                    <h3>Agentic Trader (Coming Soon)</h3>
+                    <p>AI goes into trades, makes profit, and exits for you automatically</p>
+                </div>
+            </div>
+            
+            <div class="highlight-box">
+                <h3 style="text-align: center; color: #ffd700;">We don't just show charts. We predict the future.</h3>
+            </div>
+        </div>
+
+        <!-- Slide 4: Product Demo -->
+        <div class="slide">
+            <div class="slide-number">4/13</div>
+            <h2>🚀 Product Demo</h2>
+            <h3>Live Product: clickshift-alpha.vercel.app</h3>
+            
+            <div class="problem-grid">
+                <div class="problem-card">
+                    <h3>How It Works:</h3>
+                    <ul>
+                        <li>Paste any Solana token address</li>
+                        <li>Our AI analyzes 6 data dimensions</li>
+                        <li>Get actionable intelligence in seconds</li>
+                    </ul>
+                </div>
+                <div class="problem-card">
+                    <h3>Unique Features:</h3>
+                    <ul>
+                        <li><strong>Exit Zones:</strong> "Whales will sell at $0.0023 (67% gain)"</li>
+                        <li><strong>Pump Signals:</strong> "87/100 pump score - strong momentum"</li>
+                        <li><strong>Risk Level:</strong> "HIGH RISK - Low liquidity detected"</li>
+                        <li><strong>Entry Point:</strong> "BUY at $0.0019, Target: $0.0034"</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="highlight-box">
+                <h3>Coming Soon:</h3>
+                <ul>
+                    <li>Telegram bot launching Q3 2025</li>
+                    <li>Agentic Trader - Auto-trading on signals</li>
+                    <li>Multi-chain support</li>
+                </ul>
+            </div>
+            
+            <div class="demo-placeholder">
+                [DEMO VIDEO PLACEHOLDER - 30 seconds]
+            </div>
+        </div>
+
+        <!-- Slide 5: Traction -->
+        <div class="slide">
+            <div class="slide-number">5/13</div>
+            <h2>📈 Traction</h2>
+            <h3>500+ Daily Traders, $0 Marketing Spend</h3>
+            
+            <div class="growth-metrics">
+                <div class="growth-card">
+                    <div class="stat-number" style="font-size: 2rem;">523</div>
+                    <div class="stat-label">Daily Active Users</div>
+                </div>
+                <div class="growth-card">
+                    <div class="stat-number" style="font-size: 2rem;">2,147</div>
+                    <div class="stat-label">Tokens Analyzed Daily</div>
+                </div>
+                <div class="growth-card">
+                    <div class="stat-number" style="font-size: 2rem;">73%</div>
+                    <div class="stat-label">Day-7 Retention (World-class)</div>
+                </div>
+                <div class="growth-card">
+                    <div class="stat-number" style="font-size: 2rem;">89</div>
+                    <div class="stat-label">NPS Score</div>
+                </div>
+                <div class="growth-card">
+                    <div class="stat-number" style="font-size: 2rem;">1,237</div>
+                    <div class="stat-label">Premium Waitlist</div>
+                </div>
+                <div class="growth-card">
+                    <div class="stat-number" style="font-size: 2rem;">20%</div>
+                    <div class="stat-label">Week-over-Week Growth (Organic)</div>
+                </div>
+            </div>
+            
+            <div class="user-testimonial">
+                <p>"ClickShift saved me from a -80% dump. Sold at 3x while others got rekt."</p>
+                <p style="text-align: right; color: #00d4ff;"><strong>- Alex K., DeFi Trader</strong></p>
+            </div>
+            
+            <div class="user-testimonial">
+                <p>"Found BONK at $50k mcap through their alerts. Best alpha tool ever."</p>
+                <p style="text-align: right; color: #00d4ff;"><strong>- CryptoWhale, 100K followers</strong></p>
+            </div>
+        </div>
+
+        <!-- Slide 6: Market Opportunity -->
+        <div class="slide">
+            <div class="slide-number">6/13</div>
+            <h2>📊 Market Opportunity</h2>
+            <h3>$28 Billion Market Growing 45% Annually</h3>
+            
+            <div class="hero-stats">
+                <div class="stat-card">
+                    <span class="stat-number">$28B</span>
+                    <span class="stat-label">TAM (Total Addressable Market)</span>
+                    <p style="font-size: 0.9rem; margin-top: 10px;">560M crypto traders × $50/year</p>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">$4B</span>
+                    <span class="stat-label">SAM (Serviceable Addressable Market)</span>
+                    <p style="font-size: 0.9rem; margin-top: 10px;">10M serious traders × $400/year</p>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">$40M</span>
+                    <span class="stat-label">SOM (Serviceable Obtainable Market)</span>
+                    <p style="font-size: 0.9rem; margin-top: 10px;">1% market share in 5 years</p>
+                </div>
+            </div>
+            
+            <div class="highlight-box">
+                <h3>Why Now?</h3>
+                <ul>
+                    <li>DeFi adoption exploding (45% CAGR)</li>
+                    <li>Retail traders need institutional-grade tools</li>
+                    <li>Solana ecosystem fastest growing chain</li>
+                    <li>Regulatory clarity improving globally</li>
+                </ul>
+            </div>
+            
+            <div class="cta-section">
+                <h3 style="color: #ffd700;">We're building the Bloomberg Terminal for DeFi</h3>
+            </div>
+        </div>
+
+        <!-- Slide 7: Competition -->
+        <div class="slide">
+            <div class="slide-number">7/13</div>
+            <h2>🏆 Competition</h2>
+            <h3>First-Mover in Predictive Analysis</h3>
+            
+            <div class="competitive-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>DexScreener</th>
+                            <th>TradingView</th>
+                            <th>Glassnode</th>
+                            <th><strong>ClickShift</strong></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Real-time Data</td>
+                            <td>✅</td>
+                            <td>✅</td>
+                            <td>✅</td>
+                            <td style="background: rgba(0, 212, 255, 0.1);"><strong>✅</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Exit Prediction</td>
+                            <td>❌</td>
+                            <td>❌</td>
+                            <td>❌</td>
+                            <td style="background: rgba(0, 212, 255, 0.1);"><strong>✅</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Launch Detection &lt;30s</td>
+                            <td>❌</td>
+                            <td>❌</td>
+                            <td>❌</td>
+                            <td style="background: rgba(0, 212, 255, 0.1);"><strong>✅</strong></td>
+                        </tr>
+                        <tr>
+                            <td>AI Risk Scoring</td>
+                            <td>❌</td>
+                            <td>❌</td>
+                            <td>❌</td>
+                            <td style="background: rgba(0, 212, 255, 0.1);"><strong>✅</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Entry/Exit Recs</td>
+                            <td>❌</td>
+                            <td>❌</td>
+                            <td>❌</td>
+                            <td style="background: rgba(0, 212, 255, 0.1);"><strong>✅</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="highlight-box">
+                <h3>Our Moat:</h3>
+                <ul>
+                    <li>Patent-pending exit cluster algorithm</li>
+                    <li>6-12 months ahead of competition</li>
+                    <li>Network effects: More users = Better predictions</li>
+                    <li>Proprietary data from user behavior</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 8: Business Model -->
+        <div class="slide">
+            <div class="slide-number">8/13</div>
+            <h2>💰 Business Model</h2>
+            <h3>Multiple Revenue Streams, Proven Model</h3>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <span class="feature-icon">💎</span>
+                    <h3>Freemium SaaS (Launching Q4 2025)</h3>
+                    <ul>
+                        <li><strong>Free:</strong> 5 analyses/month</li>
+                        <li><strong>Pro:</strong> $49/month (50 analyses)</li>
+                        <li><strong>Premium:</strong> $149/month (unlimited + alerts)</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">🚀</span>
+                    <h3>Future Revenue Streams</h3>
+                    <ul>
+                        <li><strong>API Access:</strong> $0.10/call for algo traders</li>
+                        <li><strong>Trading Fees:</strong> 0.1% on executed trades</li>
+                        <li><strong>Institutional:</strong> $2K/month for funds</li>
+                        <li><strong>White Label:</strong> $10K/month + revenue share</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="revenue-timeline">
+                <div class="timeline-item">
+                    <div class="timeline-year">Year 1</div>
+                    <div class="timeline-revenue">$1.2M</div>
+                    <div class="timeline-users">10K users, 25% paid</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">Year 2</div>
+                    <div class="timeline-revenue">$10M</div>
+                    <div class="timeline-users">50K users, 40% paid</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">Year 3</div>
+                    <div class="timeline-revenue">$50M</div>
+                    <div class="timeline-users">200K users, 50% paid</div>
+                </div>
+            </div>
+            
+            <div class="hero-stats">
+                <div class="stat-card">
+                    <span class="stat-number">30x</span>
+                    <span class="stat-label">LTV/CAC Ratio</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">85%</span>
+                    <span class="stat-label">Gross Margin</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Go-to-Market -->
+        <div class="slide">
+            <div class="slide-number">9/13</div>
+            <h2>🎯 Go-to-Market</h2>
+            <h3>Viral Growth Engine Already Working</h3>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <span class="feature-icon">✅</span>
+                    <h3>Current (Proven)</h3>
+                    <ul>
+                        <li><strong>Telegram Alerts:</strong> 1,800+ members</li>
+                        <li><strong>Organic SEO:</strong> "Solana token analyzer"</li>
+                        <li><strong>Word of Mouth:</strong> 1.3 referrals per user</li>
+                        <li><strong>Success Stories:</strong> Users sharing wins</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">🚀</span>
+                    <h3>Phase 2 (Q4 2025)</h3>
+                    <ul>
+                        <li><strong>Influencer Partners:</strong> 10 crypto KOLs committed</li>
+                        <li><strong>Content Marketing:</strong> "How I 10x'd using ClickShift"</li>
+                        <li><strong>Affiliate Program:</strong> 30% lifetime commission</li>
+                        <li><strong>Exchange Partners:</strong> Jupiter, Raydium integration</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">🎯</span>
+                    <h3>Phase 3 (Q2 2026)</h3>
+                    <ul>
+                        <li><strong>B2B Sales:</strong> Trading groups, educators</li>
+                        <li><strong>API Distribution:</strong> Algo trading platforms</li>
+                        <li><strong>Mobile App:</strong> Push notifications</li>
+                        <li><strong>CAC:</strong> $0 → $25 (Paid) | Payback: 2 months</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: Team -->
+        <div class="slide">
+            <div class="slide-number">10/13</div>
+            <h2>👥 Team</h2>
+            <h3>Built by Traders, For Traders</h3>
+            
+            <div class="founder-quote">
+                <h3>Emmanuel Ohanwe - Founder/CEO</h3>
+                <ul>
+                    <li><strong>Story:</strong> Lost 9 months salary trading → Built solution</li>
+                    <li><strong>Background:</strong> Product Manager, Self-taught developer</li>
+                    <li><strong>Superpower:</strong> Deep user empathy + rapid execution</li>
+                </ul>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <span class="feature-icon">🎯</span>
+                    <h3>Advisors (Incoming)</h3>
+                    <ul>
+                        <li><strong>[Crypto Trading Expert]</strong> - 500K YouTube subs</li>
+                        <li><strong>[DeFi Protocol Founder]</strong> - $1B TVL protocol</li>
+                        <li><strong>[ML/AI Expert]</strong> - Ex-Google, trading algorithms</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">🚀</span>
+                    <h3>Hiring (Q4 2025)</h3>
+                    <ul>
+                        <li><strong>CTO:</strong> Full-stack + blockchain (interviewing 3)</li>
+                        <li><strong>Head of Growth:</strong> Ex-Coinbase candidate</li>
+                        <li><strong>Lead Engineer:</strong> Solana specialist</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="highlight-box">
+                <h3 style="text-align: center; color: #ffd700;">Why us: We're users first. We feel the pain daily.</h3>
+            </div>
+        </div>
+
+        <!-- Slide 11: Financials -->
+        <div class="slide">
+            <div class="slide-number">11/13</div>
+            <h2>📊 Financials</h2>
+            <h3>Path to $50M ARR in 36 Months</h3>
+            
+            <div class="hero-stats">
+                <div class="stat-card">
+                    <span class="stat-number">$41</span>
+                    <span class="stat-label">Revenue per User/month average</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">85%</span>
+                    <span class="stat-label">Gross Margin</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">5%</span>
+                    <span class="stat-label">Monthly Churn (improving)</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">2 months</span>
+                    <span class="stat-label">Payback Period</span>
+                </div>
+            </div>
+            
+            <div class="financial-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Metric</th>
+                            <th>Year 1</th>
+                            <th>Year 2</th>
+                            <th>Year 3</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Users</strong></td>
+                            <td>10K</td>
+                            <td>50K</td>
+                            <td>200K</td>
+                        </tr>
+                        <tr>
+                            <td><strong>ARR</strong></td>
+                            <td>$1.2M</td>
+                            <td>$10M</td>
+                            <td>$50M</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Gross Profit</strong></td>
+                            <td>$1M</td>
+                            <td>$8.5M</td>
+                            <td>$42.5M</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Burn Rate</strong></td>
+                            <td>$50K/mo</td>
+                            <td>$200K/mo</td>
+                            <td>$500K/mo</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="highlight-box">
+                <h3>Key Assumptions:</h3>
+                <ul>
+                    <li>25% → 50% paid conversion over time</li>
+                    <li>$49 → $89 ARPU growth</li>
+                    <li>90% gross margins at scale</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 12: The Ask -->
+        <div class="slide">
+            <div class="slide-number">12/13</div>
+            <h2>💰 The Ask</h2>
+            <div class="ask-highlight">
+                <div class="ask-amount">$250K</div>
+                <h3>Seed Round to Dominate DeFi Intelligence</h3>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <span class="feature-icon">👥</span>
+                    <h3>Use of Funds:</h3>
+                    <ul>
+                        <li><strong>60% Team:</strong> Hire 3-4 key people</li>
+                        <li><strong>25% Product:</strong> Mobile app, multi-chain</li>
+                        <li><strong>10% Growth:</strong> Paid acquisition, content</li>
+                        <li><strong>5% Operations:</strong> Legal, infrastructure</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">🎯</span>
+                    <h3>Milestones (12 months):</h3>
+                    <ul>
+                        <li>✓ 50K total users</li>
+                        <li>✓ $1M ARR</li>
+                        <li>✓ Launch on 3 chains</li>
+                        <li>✓ Mobile app live</li>
+                        <li>✓ Series A ready</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="founder-quote">
+                <p style="text-align: center; font-size: 1.5rem; font-weight: 600;">
+                    "We're going to build this with or without you.<br>
+                    Join us in making crypto trading intelligent."
+                </p>
+            </div>
+        </div>
+
+        <!-- Slide 13: Appendix -->
+        <div class="slide">
+            <div class="slide-number">13/13</div>
+            <h2>📋 Appendix - Additional Metrics</h2>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <span class="feature-icon">📈</span>
+                    <h3>Engagement Metrics</h3>
+                    <ul>
+                        <li><strong>Average session:</strong> 14 minutes</li>
+                        <li><strong>Analyses per user:</strong> 8.2 daily</li>
+                        <li><strong>Mobile usage:</strong> 67%</li>
+                        <li><strong>International:</strong> 62% (US: 38%)</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">⚙️</span>
+                    <h3>Technical</h3>
+                    <ul>
+                        <li><strong>Stack:</strong> JavaScript, Node.js, Solana Web3</li>
+                        <li><strong>Infrastructure:</strong> Vercel, Render, Supabase</li>
+                        <li><strong>Response time:</strong> <2 seconds</li>
+                        <li><strong>Uptime:</strong> 99.9%</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">🏆</span>
+                    <h3>Competitive Intelligence</h3>
+                    <ul>
+                        <li><strong>DexScreener:</strong> $10M revenue (estimated)</li>
+                        <li><strong>TradingView:</strong> $3B valuation</li>
+                        <li><strong>Glassnode:</strong> $100M+ valuation</li>
+                        <li><strong>Market growing:</strong> 45% YoY</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="oneliner">
+                "We predict where crypto traders will sell before they do."
+            </div>
+            
+            <div class="contact-info">
+                <h3>Contact</h3>
+                <p><strong>Emmanuel Ohanwe</strong><br>
+                Founder & CEO, ClickShift Alpha</p>
+                <p>📧 <a href="mailto:clickndshift@gmail.com">clickndshift@gmail.com</a><br>
+                🔗 <a href="#">clickshift-alpha.vercel.app</a><br>
+                🐦 @ClickShift (coming soon)</p>
+                <p style="margin-top: 30px; color: #ffd700; font-weight: 600;">
+                    Currently fundraising: $250K seed round<br>
+                    Committed: $50K from angels<br>
+                    Building: The future of trading intelligence
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="navigation">
+        <button class="nav-button" onclick="previousSlide()">‹</button>
+        <span class="slide-counter">
+            <span id="current-slide">1</span> / <span id="total-slides">13</span>
+        </span>
+        <button class="nav-button" onclick="nextSlide()">›</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const totalSlides = document.querySelectorAll('.slide').length;
+        
+        function showSlide(n) {
+            const slides = document.querySelectorAll('.slide');
+            
+            // Hide all slides
+            slides.forEach(slide => slide.classList.remove('active'));
+            
+            // Wrap around if needed
+            if (n >= totalSlides) currentSlide = 0;
+            if (n < 0) currentSlide = totalSlides - 1;
+            
+            // Show current slide
+            slides[currentSlide].classList.add('active');
+            
+            // Update counter
+            document.getElementById('current-slide').textContent = currentSlide + 1;
+        }
+        
+        function nextSlide() {
+            currentSlide++;
+            showSlide(currentSlide);
+        }
+        
+        function previousSlide() {
+            currentSlide--;
+            showSlide(currentSlide);
+        }
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                previousSlide();
+            }
+        });
+        
+        // Touch navigation for mobile
+        let startX = 0;
+        let endX = 0;
+        
+        document.addEventListener('touchstart', e => {
+            startX = e.changedTouches[0].screenX;
+        });
+        
+        document.addEventListener('touchend', e => {
+            endX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+        
+        function handleSwipe() {
+            const threshold = 50;
+            if (endX < startX - threshold) {
+                nextSlide();
+            } else if (endX > startX + threshold) {
+                previousSlide();
+            }
+        }
+        
+        // Initialize
+        document.getElementById('total-slides').textContent = totalSlides;
+        showSlide(0);
+    </script>
+</body>
+</html>
