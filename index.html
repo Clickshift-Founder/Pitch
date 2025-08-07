@@ -12,6 +12,62 @@
         }
 
         body {
+        <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClickShift Alpha - Investor Pitch Deck</title>
+    <style>
+        /* Your existing CSS styles here */
+    </style>
+</head>
+<body>
+    <!-- ADD PASSWORD SCRIPT HERE - RIGHT AFTER <body> TAG -->
+    <script>
+    (function() {
+        const correctPassword = "clickshift2025"; // Change this password
+        const enteredPassword = prompt("🔒 Enter password to view ClickShift Alpha pitch deck:");
+        
+        if (enteredPassword !== correctPassword) {
+            document.body.innerHTML = `
+                <div style="
+                    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+                    color: white;
+                    height: 100vh;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-family: 'Inter', sans-serif;
+                    flex-direction: column;
+                ">
+                    <h1 style="font-size: 3rem; margin-bottom: 20px;">🔒 Access Denied</h1>
+                    <p style="font-size: 1.2rem; opacity: 0.8;">Invalid password for ClickShift Alpha pitch deck</p>
+                    <button onclick="location.reload()" style="
+                        margin-top: 30px;
+                        padding: 15px 30px;
+                        background: linear-gradient(135deg, #00d4ff, #ff4081);
+                        border: none;
+                        border-radius: 25px;
+                        color: white;
+                        font-size: 1rem;
+                        cursor: pointer;
+                    ">Try Again</button>
+                </div>
+            `;
+            return;
+        }
+    })();
+    </script>
+    
+    <!-- Your existing pitch deck HTML content goes here -->
+    <div class="deck-container">
+        <!-- All your slides -->
+    </div>
+    
+    <!-- Rest of your HTML -->
+</body>
+</html>
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
             color: #ffffff;
@@ -26,14 +82,16 @@
         }
 
         .slide {
-            min-height: 100vh;
-            padding: 60px 40px;
-            display: none;
-            flex-direction: column;
-            justify-content: center;
-            position: relative;
-            overflow-y: auto;
-        }
+    min-height: 100vh;
+    padding: 60px 40px 120px 40px;
+    display: none;
+    flex-direction: column;
+    justify-content: flex-start;
+    position: relative;
+    overflow-y: auto;
+    max-height: 100vh;
+    box-sizing: border-box;
+}
 
         .slide.active {
             display: flex;
@@ -437,69 +495,99 @@
 
         /* Navigation */
         .navigation {
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 1000;
-            display: flex;
-            gap: 15px;
-            background: rgba(0, 0, 0, 0.8);
-            padding: 20px;
-            border-radius: 50px;
-            backdrop-filter: blur(10px);
-            align-items: center;
-        }
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    display: flex;
+    gap: 15px;
+    background: rgba(0, 0, 0, 0.4);
+    padding: 12px 20px;
+    border-radius: 30px;
+    backdrop-filter: blur(15px);
+    align-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
 
-        .nav-button {
-            background: rgba(0, 212, 255, 0.2);
-            border: 1px solid #00d4ff;
-            color: white;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            font-size: 1.2rem;
-        }
+.nav-button {
+    background: rgba(0, 212, 255, 0.15);
+    border: 1px solid rgba(0, 212, 255, 0.3);
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+    backdrop-filter: blur(10px);
+}
 
-        .nav-button:hover {
-            background: rgba(0, 212, 255, 0.4);
-            transform: scale(1.1);
-        }
+.nav-button:hover {
+    background: rgba(0, 212, 255, 0.3);
+    transform: scale(1.05);
+    border-color: rgba(0, 212, 255, 0.5);
+}
 
-        .slide-counter {
-            color: #fff;
-            font-size: 14px;
-            padding: 0 15px;
-            white-space: nowrap;
-        }
+.slide-counter {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 12px;
+    padding: 0 12px;
+    white-space: nowrap;
+    font-weight: 500;
+}
 
         @media (max-width: 768px) {
-            .slide {
-                padding: 40px 20px;
-            }
+    .slide {
+        padding: 40px 20px 100px 20px;
+        justify-content: flex-start;
+    }
 
-            h1 {
-                font-size: 2.5rem;
-            }
+    h1 {
+        font-size: 2.5rem;
+    }
 
-            h2 {
-                font-size: 2rem;
-            }
+    h2 {
+        font-size: 2rem;
+    }
 
-            .revenue-timeline {
-                flex-direction: column;
-                gap: 20px;
-            }
+    .revenue-timeline {
+        flex-direction: column;
+        gap: 20px;
+    }
 
-            .revenue-timeline::before {
-                display: none;
-            }
-        }
+    .revenue-timeline::before {
+        display: none;
+    }
+
+    .navigation {
+        bottom: 15px;
+        padding: 10px 15px;
+    }
+
+    .nav-button {
+        width: 35px;
+        height: 35px;
+        font-size: 0.9rem;
+    }
+
+    .slide-counter {
+        font-size: 11px;
+        padding: 0 8px;
+    }
+
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .hero-stats {
+        grid-template-columns: 1fr;
+    }
+}
     </style>
 </head>
 <body>
